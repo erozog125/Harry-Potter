@@ -1,6 +1,6 @@
 const main_api = document.getElementById("main-api");
 const selected_character = document.getElementById("sel-character");
-const everybody_character = document.getElementById('everybody');
+const everybody_character = document.getElementById("everybody");
 
 // Api Harry Potter
 const URL = "http://hp-api.herokuapp.com/api/characters";
@@ -24,33 +24,36 @@ function List_Characters() {
 }
 
 function Fetch_Resources() {
-  const character = selected_character.value;
+ const character = selected_character.value;
  fetch(URL)
   .then((response) => response.json())
   .then((data) => {
-    if( character === everybody_character.value) {
-      main_api.innerHTML = '';
-      return data.map(element => {create_card(element)})}
-    else {return data.map(element => {if (element.name === character) { main_api.innerHTML = '';create_card(element)}
-      })
-    }        
-  })
+   if (character === everybody_character.value) {
+    main_api.innerHTML = "";
+    return data.map((element) => {
+     create_card(element);
+    });
+   } else {
+    return data.map((element) => {
+     if (element.name === character) {
+      main_api.innerHTML = "";
+      create_card(element);
+     }
+    });
+   }
+  });
 }
-    
-
-
 
 function create_card(data) {
+ const card = document.createElement("div");
+ const name_card = document.createElement("h2");
+ const gender_card = document.createElement("p");
+ const img_card = document.createElement("img");
 
- const card = document.createElement('div');
- const name_card = document.createElement('h2'); 
- const gender_card = document.createElement('p'); 
- const img_card = document.createElement('img');
-
- card.classList.add('card');
- name_card.setAttribute('id','name-card');
- gender_card.setAttribute('id','gender-card');
- img_card.classList.add('img-card');
+ card.classList.add("card");
+ name_card.setAttribute("id", "name-card");
+ gender_card.setAttribute("id", "gender-card");
+ img_card.classList.add("img-card");
 
  name_card.textContent = data.name;
  img_card.setAttribute("id", data.id);
@@ -60,5 +63,5 @@ function create_card(data) {
  card.appendChild(img_card);
  card.appendChild(name_card);
  card.appendChild(gender_card);
- main_api.appendChild(card); 
+ main_api.appendChild(card);
 }
